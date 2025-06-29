@@ -11,7 +11,7 @@
 - name: update mondoDB address
   ansible.builtin.replace:
     path: /etc/mongod.conf
-    regex: '127.0.0.1'
+    regexp: '127.0.0.1'
     replace: '0.0.0.0'
 
 - name: Start mongod service
