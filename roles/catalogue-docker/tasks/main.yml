@@ -17,7 +17,7 @@
 - name: run schema container
   community.docker.docker_container:
     name: catalogue-schema
-    image: public.ecr.aws/w8x4g9h7/roboshop-v3/chema-load
+    image: public.ecr.aws/w8x4g9h7/roboshop-v3/schema-load
     state: started
     ports:
       - "8080:8080"
