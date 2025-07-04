@@ -3,16 +3,27 @@
     name: common
     tasks_from: docker
 
-- name: run cart container
+- name: run catalogue container
   community.docker.docker_container:
-    name: cart
-    image: public.ecr.aws/w8x4g9h7/roboshop-v3/cart
+    name: catalogue
+    image: public.ecr.aws/w8x4g9h7/roboshop-v3/catalogue
     state: started
     ports:
       - "8080:8080"
     env:
-      CATALOGUE_HOST: "{{ lookup('community.hashi_vault.hashi_vault', 'secret=roboshop-{{ env }}/data/{{ app_name }}:CATALOGUE_HOST token={{ token }} url=http://vault-int.prashumps.online:8200') }}"
-      CATALOGUE_PORT: "{{ lookup('community.hashi_vault.hashi_vault', 'secret=roboshop-{{ env }}/data/{{ app_name }}:CATALOGUE_PORT token={{ token }} url=http://vault-int.prashumps.online:8200') }}"
-      REDIS_HOST: "{{ lookup('community.hashi_vault.hashi_vault', 'secret=roboshop-{{ env }}/data/{{ app_name }}:REDIS_HOST token={{ token }} url=http://vault-int.prashumps.online:8200') }}"
+      MONGO: "{{ lookup('community.hashi_vault.hashi_vault', 'secret=roboshop-{{ env }}/data/{{ app_name }}:MONGO token={{ token }} url=http://vault-int.prashumps.online:8200') }}"
+      MONGO_URL: "{{ lookup('community.hashi_vault.hashi_vault', 'secret=roboshop-{{ env }}/data/{{ app_name }}:MONGO_URL token={{ token }} url=http://vault-int.prashumps.online:8200') }}"
 
+- name: run schema container
+  community.docker.docker_container:
+    name: catalogue-schema
+    image: public.ecr.aws/w8x4g9h7/roboshop-v3/chema-load
+    state: started
+    ports:
+      - "8080:8080"
+    env:
+      DB_TYPE: "{{ lookup('community.hashi_vault.hashi_vault', 'secret=roboshop-{{ env }}/data/{{ app_name }}:DB_TYPE token={{ token }} url=http://vault-int.prashumps.online:8200') }}"
+      APP_GIT_URL: "{{ lookup('community.hashi_vault.hashi_vault', 'secret=roboshop-{{ env }}/data/{{ app_name }}:APP_GIT_URL token={{ token }} url=http://vault-int.prashumps.online:8200') }}"
+      DB_HOST: "{{ lookup('community.hashi_vault.hashi_vault', 'secret=roboshop-{{ env }}/data/{{ app_name }}:DB_HOST token={{ token }} url=http://vault-int.prashumps.online:8200') }}"
+      SCHEMA_FILE: "{{ lookup('community.hashi_vault.hashi_vault', 'secret=roboshop-{{ env }}/data/{{ app_name }}:SCHEMA_FILE token={{ token }} url=http://vault-int.prashumps.online:8200') }}"
 
