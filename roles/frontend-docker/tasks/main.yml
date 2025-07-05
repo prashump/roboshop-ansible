@@ -20,4 +20,4 @@
       SHIPPING_HOST: "{{ lookup('community.hashi_vault.hashi_vault', 'secret=roboshop-{{ env }}/data/{{ app_name }}:SHIPPING_HOST token={{ token }} url=http://vault-int.prashumps.online:8200') }}"
       SHIPPING_PORT: "{{ lookup('community.hashi_vault.hashi_vault', 'secret=roboshop-{{ env }}/data/{{ app_name }}:SHIPPING_PORT token={{ token }} url=http://vault-int.prashumps.online:8200') }}"
       PAYMENT_HOST: "{{ lookup('community.hashi_vault.hashi_vault', 'secret=roboshop-{{ env }}/data/{{ app_name }}:PAYMENT_HOST token={{ token }} url=http://vault-int.prashumps.online:8200') }}"
-      PAYMENT_PORT: "{{ lookup('community.hashi_vault.hashi_vault', 'secret=roboshop-{{ env }}/data/{{ app_name }}:PAYMENT_HOST token={{ token }} url=http://vault-int.prashumps.online:8200') }}"
+      PAYMENT_PORT: "{{ lookup('community.hashi_vault.hashi_vault', 'secret=roboshop-{{ env }}/data/{{ app_name }}:PAYMENT_PORT token={{ token }} url=http://vault-int.prashumps.online:8200') }}"
